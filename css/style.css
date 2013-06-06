@@ -1,0 +1,92 @@
+#states path {
+  fill: #ccc;
+  stroke: #fff;
+}
+
+#facilities .detention {
+  fill: green;
+  stroke: green;
+}
+
+#app-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#scoreboard {
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+}
+
+#scoreboard #learn-more-button {
+  display: none;
+}
+
+#map-container {
+  position: relative;
+  width: 80%;
+  float: left;
+}
+
+#characters {
+  position: relative;
+  width: 18%;
+  float: left;
+  padding-left: 5px;
+
+  font-size: 12px;
+  line-height: 14px;
+}
+
+#characters .character {
+  min-height: 80px;
+}
+
+#characters h3 {
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  text-indent: 35px;
+  font-size: 24px;
+  line-height: 24px;
+  margin: 0 0 5px;
+}
+
+#characters p {
+  margin-bottom: 0;
+}
+
+.female h3 {
+  background-image: url('../img/female-avatar.png'); 
+}
+
+.male h3 {
+  background-image: url('../img/male-avatar.png'); 
+}
+
+#date, #detention-counter, #deportation-counter, #facilities-counter {
+  display: inline-block;
+}
+
+#date {
+  width: 200px;
+}
+
+#detention-counter {
+  background-color: yellow;
+  color: #000 !important;
+}
+
+#deportation-counter {
+  background-color: red;
+}
+
+#facilities-counter {
+  background-color: #000;
+  color: #fff;
+}
+
+#narrative, #character-stories {
+  display: none;
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Illinois in the ICE Age</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/style.css" rel="stylesheet" media="screen">
+
+        <script id="characters-template" type="text/x-handlebars-template">
+        {{#each characters}}
+          <div id="{{trac_id}}" data-trac-id="{{trac_id}}" class="character {{gender}} {{nationality}}">
+              <h3>{{trac_id}}</h3>
+              <div class="avatar"></div>
+              <div class="status"></div>
+              <div class="clearfix"></div>
+          </div>
+        {{/each}}
+        </script>
+
+        <script id="story-template" type="text/x-handlebars-template">
+        <div id="character-stories-{{id}}" data-trac-id="{{id}}">
+          <h2>{{id}}</h2>
+          {{#each stories}}
+          <div class="story">
+              {{{content}}}
+          </div>
+          <p><a href="#app-container">Go back to the map</a> or <a href="#narrative">Learn more about immigrant detention</a></p>
+          {{/each}}
+        </div>
+        </script>
+
+        <script data-main="js/app" src="js/vendor/require.js"></script>
+    </head>
+    <body>
+        <section id="intro" class="container">
+        <h2>Illinois in the ICE age</h2>
+
+        <p>During November and December of 2012, 915 people picked up by U.S. Immigration and Customs Enforcement (ICE) in Illinois left ICE custody. Many of these individuals entered custody earlier and one individual had been held for more than a year. Of those who left, 390 were deported and 38 agreed to their own removal.</p>
+
+        <p>Detainees can be held for anywhere from a few weeks to a few years while their cases proceed. More than 420,000 people nationwide were detained in 2012. In a little more than a decade, immigration detention has tripled.</p>
+
+        <p>The U.S. government's increased criminalization and enforcement of migration has created a boom in profits for private prison companies and local municipalities at the expense of human rights. Migrants in detention face numerous hardships including being separated from family, and inadequate access to lawyers and medical care.</p>
+
+        <p>This is a snapshot of the trajectories of all the people who left ICE custody during November and December of 2012 and a deeper look at the journey of seven people. The names of these people are unknown, so they are identied by the number assigned to them in the TRAC data.</p>
+
+        <p><button id="show-animation" class="btn btn-primary" disabled="disabled">Watch these stories unfold!</button></p>
+        </section>
+        <div id="app-container">
+          <div id="scoreboard">
+              <div id="facilities-counter" class="label">Facilities: 24</div>
+              <div id="detention-counter" class="label">Detained: <span id="detention-count">0</span></div>
+              <div id="deportation-counter" class="label">Deported: <span id="deportation-count">0</span></div>
+              <div id="date">&nbsp;</div>
+              <a id="learn-more-button" class="btn btn-primary" href='#narrative'>Learn more</a>
+          </div>
+          <div id="map-container"></div>
+          <div id="characters"></div> 
+        </div>
+        <div class="clearfix"></div>
+        <section id="character-stories" class="container">
+        </section>
+        <section id="narrative" class="container">
+
+        <h3>Transfers</h3>
+
+        <p>According to a Human Rights Watch report,  close to 1.6 million immigrant detainees were transferred between 1997 and 2006. In 2008, a majority of detainees were transferred two or more times. In response to this report, ICE announced in 2010 it’s intention to  "minimize the number of detainee transfers to the greatest extent possible" and reduce long-distance transfers.</p>
+
+        <p>ICE records obtained by TRAC at Syracuse University for the two-month period in 2012 show that detainees continue to be transferred at high rates within the Midwest.</p>
+
+        <h3>Tracing the journey</h3>
+
+        <p>Some people were transferred between as many as seven facilities, not counting multiple trips to Chicago for court hearings — a drive of that takes between two and eight hours, depending on the detention center.
+
+        <p>Transportation is billed to taxpayers by, mostly, subcontractors. <a href="https://www.documentcloud.org/documents/706246-jefferson-igsa.html">Jefferson County</a>, for instance, charges $26.00 per hour with a mileage rate of $0.585. <a href="www.documentcloud.org/documents/706240-tri-igsa.html#annotation/a104610">Pulaski County</a> bills at $13 miles per hour plus mileage.</p>
+
+        <p>Sexual abuse and unsanitary conditions have been reported during transfer.</p>
+
+        <p>Of the 915 detainees, 617 were transferred two or more times and 44 were transferred more than 10 times.</p>
+
+        <h3>The human costs</h3>
+
+        <p>ICE relies on a system of subcontracts with state jails and prisons as well as private prison companies. Detention centers receive up to $166 per person, per day.</p>
+
+        <p>Among the detainees who are unnecessarily imprisoned are asylum seekers, victims of trafficking, parents of small children, elderly individuals, people with serious medical and mental health conditions, and lawful permanent residents facing deportation because of old or minor crimes.</p>
+
+        <h3>Epilogue</h3>
+
+        <p>The current immigration policy tears families apart and ruins their opportunity for a better life.</p>
+
+        <p>The federal government's decision to prosecute more immigration violations criminally has diverted resources from the prosecution of serious crimes. </p>
+
+        <p>There is an alternative to detention in community-based solutions that are more humane, more effective, and much less costly.</p>
+
+        <h3>About the data</h3>
+
+        <p><a href="https://docs.google.com/spreadsheet/ccc?key=0AtcgndtySy1xdDBtQXUwMXRVV081b0lVQUd0ZTlQY0E#gid=0">The data</a> was provided by <a href="http://trac.syr.edu/">The Transactional Recorord Access Clearninghous (TRAC)</a> with additional data from the <a href="http://www.immigrantjustice.org/">National Immigrant Justice Center</a></p>
+
+        <h3>Contributors</h3>
+
+        <p>This project was compiled in June 2013 for <a href="http://www.chicagomigrahack.com">Chicago MigraHack</a> by:</p>
+        <p>
+        <a href="http://twitter.com/geoffhing">Geoff Hing</a><br/>
+        <a href="https://twitter.com/TruthLopez">Ruth Lopez</a><br/>
+        <a href="https://twitter.com/taratc">Tara Tidwell Cullen</a><br/>
+        Jimmie Glover<br/>
+        </p>
+
+        <p>Female and male avatar icons by <a href="http://thenounproject.com/waideas/">JM Waideaswaran</a> via <a href="http://thenounproject.com/" title="The Noun Project">The Noun Project</a>.</p>
+        </section>
+    </body>
+</html>
