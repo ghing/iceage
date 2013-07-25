@@ -7,29 +7,6 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/style.css" rel="stylesheet" media="screen">
 
-        <script id="characters-template" type="text/x-handlebars-template">
-        {{#each characters}}
-          <div id="{{trac_id}}" data-trac-id="{{trac_id}}" class="character {{gender}} {{nationality}}">
-              <h3>{{trac_id}}</h3>
-              <div class="avatar"></div>
-              <div class="status"></div>
-              <div class="clearfix"></div>
-          </div>
-        {{/each}}
-        </script>
-
-        <script id="story-template" type="text/x-handlebars-template">
-        <div id="character-stories-{{id}}" data-trac-id="{{id}}">
-          <h2>{{id}}</h2>
-          {{#each stories}}
-          <div class="story">
-              {{{content}}}
-          </div>
-          <p><a href="#app-container">Go back to the map</a> or <a href="#narrative">Learn more about immigrant detention</a></p>
-          {{/each}}
-        </div>
-        </script>
-
         <script data-main="js/app" src="js/vendor/require.js"></script>
     </head>
     <body>
