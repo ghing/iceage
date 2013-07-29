@@ -65,7 +65,7 @@
   background-image: url('../img/male-avatar.png'); 
 }
 
-#date, #detention-counter, #deportation-counter, #facilities-counter {
+#date, #detention-counter, #deportation-counter, #facilities-counter, #play-pause {
   display: inline-block;
 }
 

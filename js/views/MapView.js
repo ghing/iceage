@@ -58,7 +58,6 @@ define([
         d3El: transferLines,
         dateEvent: this.options.dateEvent
       });
-
     },
 
     renderStates: function() {

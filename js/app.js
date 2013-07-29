@@ -55,6 +55,9 @@ require([
     var facilities = new Facilities();
     var transfers = new Transfers();
     var states = new States();
+    var runAnimation = false; // Global flag for running the animation
+    var date = null;
+    var dateStr = null;
 
     // Construct the views
     var characterView = new CharacterListView({
@@ -96,6 +99,7 @@ require([
       'transfers': transfers
     });
 
+    // Callback for when the animation has completed
     var animationFinished = function() {
       characterView.addStoryLinks();
       $('#narrative').show();
@@ -108,6 +112,10 @@ require([
       var nextDate = date.clone().add(1, 'd'); 
       var dStr = date.format(isoFormat);
       var ndStr = nextDate.format(isoFormat);
+
+      if (runAnimation === false) {
+        return;
+      }
 
       Backbone.trigger('change:date', dStr, date);
 
@@ -122,9 +130,28 @@ require([
         }
       }
       else {
+        runAnimation = false;
         animationFinished();
       }
     };
+
+    var updateDate = function(sDate, mDate) {
+      date = mDate;
+      dateStr = sDate;
+    };
+    // Keep track of the current date
+    Backbone.on('change:date', updateDate);
+
+    var pauseAnimation = function() {
+      runAnimation = false;
+    };
+    Backbone.on('pause', pauseAnimation);
+
+    var playAnimation = function() {
+      runAnimation = true;
+      animate(transfers, detentions, deportations, date, transfers.end);
+    };
+    Backbone.on('play', playAnimation);
 
     // Don't let the user run the animation until all the data
     // has been initialized
@@ -133,7 +160,9 @@ require([
         $('#intro').hide();
         $('#app-container').show();
         $('#date').addClass('label');
-        animate(transfers, detentions, deportations, transfers.start, transfers.end);
+        runAnimation = true;
+        date = transfers.start;
+        animate(transfers, detentions, deportations, date, transfers.end);
       });
       $('#show-animation').removeAttr('disabled');
     });
