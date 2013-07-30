@@ -1,11 +1,13 @@
 define([
   'backbone', 
   'handlebars',
-  'text!templates/characters.html'
-], function(Backbone, Handlebars, templateSource)  {
+  'text!templates/characters.html',
+  'text!templates/character_status.html'
+], function(Backbone, Handlebars, templateSource, statusTemplateSource)  {
   return Backbone.View.extend({
     initialize: function() {
       this.template = Handlebars.compile(templateSource);
+      this.statusTemplate = Handlebars.compile(statusTemplateSource);
       this.characterEvents = this.options.characterEvents;
       this.collection.on('sync', function() {
         this.render();
@@ -18,8 +20,14 @@ define([
         date: date
       });
       _.each(events, function(model) {
-        var message = mDate.format("MMMM D, YYYY") + ": " + model.get('description');
-        this.$('#' + model.get('tracId') + " .status").html(message);
+        var context = {
+          date: mDate.format("YYYY-MM-DD"),
+          humanDate: mDate.format("MMMM D, YYYY"),
+          description: model.get('description'),
+          tracId: model.get('tracId')
+        };
+        this.$('#' + model.get('tracId') + " .status")
+            .html(this.statusTemplate(context));
       }, this);
     },
 

@@ -13,13 +13,12 @@ define([
       var data = [];
 
       _.each(response, function(events, date) {
-        _.each(events, function(description, tracId) {
-          data.push({
+        _.each(events, function(attrs, tracId) {
+          data.push(_.extend({}, attrs, {
             id: date + '-' + tracId,
             date: date,
-            tracId: tracId,
-            description: description
-          });
+            tracId: tracId
+          }));
         });
       });
 

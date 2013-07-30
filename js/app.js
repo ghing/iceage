@@ -2,7 +2,7 @@ requirejs.config({
   paths: {
     "text": "./vendor/text",
     "jquery": "./vendor/jquery-1.10.1.min",
-    //"bootstrap": "./vendor/js/bootstrap",
+    "bootstrap": "./vendor/bootstrap",
     "handlebars": "./vendor/handlebars",
     "d3": "./vendor/d3.v3.min",
     "moment": "./vendor/moment.min",
@@ -13,7 +13,7 @@ requirejs.config({
     'handlebars': {
       exports: 'Handlebars'
     },
-    //'bootstrap': 'jquery',
+    'bootstrap': 'jquery',
     'd3': {
       exports: 'd3'
     },
@@ -23,7 +23,12 @@ requirejs.config({
     },
     'underscore': {
       exports: '_'
-    }
+    },
+    // For development, prevent browser from caching assets
+    // See http://requirejs.org/docs/api.html#config-urlArgs
+    urlArgs: "bust=" + Math.random() 
+    // For production, use something like
+    // urlArgs: "bust=v2"
   }
 });
 
@@ -41,10 +46,12 @@ require([
   "collections/Transfers",
   "views/CharacterListView",
   "views/CharacterStoriesView",
+  "views/CharacterTransferView",
   "views/MapView",
   "views/ScoreBoardView",
+  "routers/AppRouter",
   "CollectionMonitor"
-], function($, Backbone, moment, Characters, CharacterEvents, CharacterStories, Deportations, Detentions, Facilities, States, Transfers, CharacterListView, CharacterStoriesView, MapView, ScoreBoardView, CollectionMonitor) {
+], function($, Backbone, moment, Characters, CharacterEvents, CharacterStories, Deportations, Detentions, Facilities, States, Transfers, CharacterListView, CharacterStoriesView, CharacterTransferView, MapView, ScoreBoardView, AppRouter, CollectionMonitor) {
   $(function() {
     // Construct the collections
     var characters = new Characters();
@@ -66,6 +73,13 @@ require([
       characterEvents: characterEvents,
       dateEvent: 'change:date'
     });
+    var characterTransferView = new CharacterTransferView({
+      el: $('#character-transfer-modal'),
+      collection: characters,
+      characterEvents: characterEvents,
+      facilities: facilities,
+      states: states
+    });
     var mapView = new MapView({
       el: $('#map-container'),
       deportations: deportations,
@@ -86,6 +100,8 @@ require([
       detentions: detentions,
       dateEvent: 'change:date'
     });
+
+    var router = new AppRouter();
 
     // Load the collection data
     CollectionMonitor.register({
@@ -156,6 +172,7 @@ require([
     // Don't let the user run the animation until all the data
     // has been initialized
     CollectionMonitor.on('ready', function() {
+      Backbone.history.start();
       $('#show-animation').click(function() {
         $('#intro').hide();
         $('#app-container').show();

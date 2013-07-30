@@ -11,13 +11,17 @@ define([
       return d3Sel[0][0]; 
     },
 
+    options: {
+      projection: d3.geo.albersUsa,
+      scale: 1200
+    },
+
     initialize: function() {
       // Initialize the svg elements
       var width = this.$el.width();
-      var height = $(window).height(); // Or do we have to do $(window).height();
-      var scale = 1200;
-      var projection = d3.geo.albersUsa()
-          .scale(scale)
+      var height = $(window).height();
+      var projection = this.options.projection()
+          .scale(this.options.scale)
           .translate([width / 2, height / 2]);
       var facilityCircles, transferLines;
 
