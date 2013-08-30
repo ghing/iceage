@@ -7,11 +7,13 @@ define([
 
     url: './data/facilities.json',
 
-    initPositions: function(proj) {
-      this.each(function(model) {
-        model.initPosition(proj);
-      });
-      this.trigger('positionsset');
+    toGeoJSON: function() {
+      return {
+          type: 'FeatureCollection',
+          features: this.map(function(facility) {
+            return facility.toGeoJSON();
+          })
+      }
     }
   });
 });

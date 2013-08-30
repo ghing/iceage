@@ -13,8 +13,7 @@ define([
       this.deportations = this.options.deportations;
       this.detentions = this.options.detentions;
 
-      this.collection.on('sync', _.partial(this.collection.initPositions, this.options.projection), this.collection);
-      this.collection.on('positionsset', this.renderInitial, this);
+      this.collection.on('sync', this.renderInitial, this);
       Backbone.on(this.options.dateEvent, this.updateDate, this);
     },
 
@@ -22,7 +21,7 @@ define([
       var detentions = this.detentions.get(date);
       var deportations = this.deportations.get(date);
 
-      this.d3El.selectAll('circle')
+      this.d3El.selectAll('path')
         .attr("fill", function(d) {
          if (detentions && $.inArray(d.id, detentions.get('facilities')) !== -1) {
            return "yellow";
@@ -38,13 +37,11 @@ define([
 
     renderInitial: function() {
       var view = this;
-      this.d3El.selectAll("circle")
-         .data(this.collection.models, function(d) { return d.id; })
-         .enter().append("svg:circle")
-         .attr("data-facility-id", function(d, i) { return d.id; })
-         .attr("cx", function(d, i) { return view.collection.get(d.id).getPosition()[0]; })
-         .attr("cy", function(d, i) { return view.collection.get(d.id).getPosition()[1]; })
-         .attr("r", function(d, i) { return view.options.pointSize; });
+      this.d3El.selectAll("path")
+        .data(this.collection.toGeoJSON().features)
+        .enter().append("path")
+        .attr("d", this.options.path)
+        .attr("data-facility-id", function(d, i) { return d.id; })
 
       return this;
     }

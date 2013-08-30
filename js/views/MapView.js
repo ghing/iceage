@@ -51,7 +51,7 @@ define([
         detentions: this.options.detentions,
         deportations: this.options.deportations,
         d3El: facilityCircles,
-        projection: projection,
+        path: this.path,
         dateEvent: this.options.dateEvent
       });
 
@@ -60,7 +60,8 @@ define([
         collection: this.options.transfers,
         facilities: this.options.facilities,
         d3El: transferLines,
-        dateEvent: this.options.dateEvent
+        dateEvent: this.options.dateEvent,
+        path: this.path
       });
     },
 
