@@ -1,8 +1,10 @@
 define([
+  'underscore',
   'backbone',
-  'd3'
-], function(Backbone, d3) {
-  return Backbone.View.extend({
+  'd3',
+  'views/FacilitiesViewMixin'
+], function(_, Backbone, d3, FacilitiesViewMixin) {
+  return Backbone.View.extend(_.extend({}, FacilitiesViewMixin, {
     options: {
       pointSize: 5
     },
@@ -36,14 +38,7 @@ define([
     },
 
     renderInitial: function() {
-      var view = this;
-      this.d3El.selectAll("path")
-        .data(this.collection.toGeoJSON().features)
-        .enter().append("path")
-        .attr("d", this.options.path)
-        .attr("data-facility-id", function(d, i) { return d.id; })
-
-      return this;
+      return this.renderFacilities(this.d3El, this.collection, this.options.path);
     }
-  });
+  }));
 });

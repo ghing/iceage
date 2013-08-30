@@ -1,10 +1,12 @@
 define([
+  'underscore',
   'backbone',
   'd3',
   'views/FacilitiesView',
-  'views/TransfersView'
-], function(Backbone, d3, FacilitiesView, TransfersView) {
-  return Backbone.View.extend({
+  'views/TransfersView',
+  'views/StateViewMixin'
+], function(_, Backbone, d3, FacilitiesView, TransfersView, StateViewMixin) {
+  return Backbone.View.extend(_.extend({}, StateViewMixin, {
     // Get a DOM element from a D3 selector
     // via http://stackoverflow.com/a/10341307/386210
     d3ToEl: function(d3Sel) {
@@ -24,6 +26,7 @@ define([
           .scale(this.options.scale)
           .translate([width / 2, height / 2]);
       var facilityCircles, transferLines;
+      var renderStates;
 
       this.path = d3.geo.path()
           .projection(projection);
@@ -41,8 +44,10 @@ define([
           .attr("id", "transfers");
 
       this.statesCollection = this.options.states;
-      this.statesCollection.on('sync', this.renderStates, this);
       this.facilitiesCollection = this.options.facilities;
+
+      renderStates = _.partial(this.renderStates, this.states, this.statesCollection, this.path);
+      this.statesCollection.once('sync', renderStates, this);
 
       // Add subviews
       this.facilitiesView = new FacilitiesView({
@@ -63,13 +68,6 @@ define([
         dateEvent: this.options.dateEvent,
         path: this.path
       });
-    },
-
-    renderStates: function() {
-      this.states.selectAll("path")
-            .data(this.statesCollection.toJSON())
-            .enter().append("svg:path")
-            .attr("d", this.path);
     }
-  });
+  }));
 });
