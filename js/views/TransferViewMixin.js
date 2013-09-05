@@ -3,7 +3,7 @@ define([
   'd3',
 ], function(Backbone, d3) {
   return {
-    renderTransfers: function(el, transfers, facilities, path) {
+    renderTransfers: function(el, transfers, facilities, path, remove) {
       // Convert to GeoJSON feature
       var transferFeatures = _.map(transfers, function(transfer) {
         var fromId = transfer[0];
@@ -23,8 +23,9 @@ define([
         .attr("stroke-width", this.options['stroke-width'])
         .attr("stroke", this.options.stroke);
 
-      // Commented out, so we can show all the connections
-      //lines.exit().remove();
+      if (remove) {
+        lines.exit().remove();
+      }
 
       return this;
     }
