@@ -2,7 +2,7 @@ define([
   'backbone',
   'models/Facility'
 ], function(Backbone, Facility) {
-  return Backbone.Collection.extend({
+  var Facilities = Backbone.Collection.extend({
     model: Facility,
 
     url: './data/facilities.json',
@@ -14,6 +14,13 @@ define([
             return facility.toGeoJSON();
           })
       }
+    },
+
+    // Like filter(), but returns a collection instead of an array
+    filterCollection: function(iterator) {
+      return new Facilities(this.filter(iterator));
     }
   });
+
+  return Facilities;
 });
