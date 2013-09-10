@@ -1,4 +1,5 @@
-#states path {
+#states path,
+#character-states path {
   fill: #ccc;
   stroke: #fff;
 }
@@ -89,4 +90,12 @@
 
 #narrative, #character-stories {
   display: none;
+}
+
+#character-transfer-modal .modal-body {
+  height: 95%;
+  width: 95%;
+  min-height: 400px;
+  min-width: 400px;
+  overflow: none;
 }
